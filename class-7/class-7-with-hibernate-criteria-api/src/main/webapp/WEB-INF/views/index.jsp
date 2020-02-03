@@ -23,10 +23,24 @@
 						<div class="card-body">
 							<h4 class="card-title pb-3">Countries</h4>
 							<p class="card-text">
-								<a class="btn btn-success btn-lg btn-block" href="country/add"
+								<a class="btn btn-success btn-lg btn-block" href="${pageContext.request.contextPath }/country/add"
 									role="button">ADD</a> <a
 									class="btn btn-primary btn-lg btn-block"
-									href="country/show-all" role="button">SHOW ALL</a>
+									href="${pageContext.request.contextPath }/country/show-all" role="button">SHOW ALL</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-12">
+					<div class="card mb-2">
+						<div class="card-body">
+							<h4 class="card-title pb-3">Students</h4>
+							<p class="card-text">
+								<a class="btn btn-success btn-lg btn-block" href="${pageContext.request.contextPath }/student/add"
+									role="button">ADD</a> <a
+									class="btn btn-primary btn-lg btn-block"
+									href="${pageContext.request.contextPath }/student/show-all" role="button">SHOW ALL</a>
 							</p>
 						</div>
 					</div>
@@ -37,7 +51,6 @@
 						<div class="card-body">
 							<h4 class="card-title pb-3">Courses</h4>
 							<p class="card-text">
-							
 							<form action="course/search" class="mb-5">
 								<div class="form-group">
 									<input type="text" class="form-control"

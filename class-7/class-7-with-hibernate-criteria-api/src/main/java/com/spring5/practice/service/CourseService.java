@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
-import javax.transaction.Transactional;
-
 import org.hibernate.HibernateException;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,38 +36,31 @@ public class CourseService {
 		courses.add(courseObj);
 	}*/
 	
-	@Transactional
 	public void addCourse(Course course) {	
 		var session = hibernateConfig.getSession();
 		var transection = session.beginTransaction();
-	
+		checkCourseInDb(course);
 		course.setCourseCode(course.getCourseName().substring(0, 2));
 		session.save(course);
 		transection.commit();
-		session.close();
 	}
 	
 	
 	private void checkCourseInDb(Course c) {
 		
 		var session = hibernateConfig.getSession();
-		var transection = session.beginTransaction();
-		
-		var query = session.getEntityManagerFactory().createEntityManager().createQuery("select c from Course c where courseCode:= courseCode",Course.class);
+		Transaction tx = session.getTransaction();
+		if (!tx.isActive())
+			tx = session.beginTransaction();
+		var query = session.getEntityManagerFactory().createEntityManager().createQuery("select c from Course c where courseCode=:courseCode ",Course.class);
 		query.setParameter("courseCode", c.getCourseCode());
 		
 		if(query.getResultStream().findAny().isPresent()) {
 		
-			transection.rollback();
+			tx.rollback();
 			session.close();
 			throw new ResourceAlreadyExistsException("Course Already exists");
 		}
-		
-
-		transection.commit();
-		session.close();
-		
-		
 	}
 	
 
@@ -76,7 +68,9 @@ public class CourseService {
 	public void saveEditedCourse (Course c) {
 		
 		var session = hibernateConfig.getSession();
-		var transection = session.beginTransaction();
+		Transaction tx = session.getTransaction();
+		if (!tx.isActive())
+			tx = session.beginTransaction();
 		try {
 			
 		}catch(HibernateException e) {
@@ -84,7 +78,7 @@ public class CourseService {
 		}
 
 		session.update(c);		
-		transection.commit();
+		tx.commit();
 		session.close();
 
 	}
@@ -101,22 +95,15 @@ public class CourseService {
 	public Course getCourseByCourseCode(String courseCode) {
 		
 		var session = hibernateConfig.getSession();
-		var transection = session.beginTransaction();
+		Transaction tx = session.getTransaction();
+		if (!tx.isActive())
+			tx = session.beginTransaction();
 		
-		var query = session.getEntityManagerFactory().createEntityManager().createQuery("select c from Course c where courseCode=: courseCode",Course.class);
+		var query = session.getEntityManagerFactory().createEntityManager().createQuery("select c from Course c where courseCode=:courseCode ",Course.class);
 		query.setParameter("courseCode", courseCode);
 
 	
-		Course course =  query.getResultStream().findAny().orElseThrow(() ->{
-		
-			transection.commit();
-			session.close();
-			
-			return new ResourceNotFoundException("Course not found");
-		});
-		
-		transection.commit();
-		session.close();
+		Course course =  query.getResultList().get(0);
 	
 		return course;
 		
@@ -127,12 +114,12 @@ public class CourseService {
 	public List<Course> getAllCourses(){
 		
 		var session = hibernateConfig.getSession();
-		var transection = session.beginTransaction();		
-  		var query = session.getEntityManagerFactory().createEntityManager().createQuery("select c from Course c", Course.class);
-		var courseList =  query.getResultList();
+		Transaction tx = session.getTransaction();
+		if (!tx.isActive())
+			tx = session.beginTransaction();
 		
-		transection.commit();
-		session.close();
+  		var query = session.getEntityManagerFactory().createEntityManager().createQuery("select c from Course c ", Course.class);
+		var courseList =  query.getResultList();
 		
 		return courseList;
 		/*var courseList = new ArrayList<Course>();

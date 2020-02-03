@@ -34,14 +34,13 @@ public class CourseController {
 		courseService.addCourse(course);
 		model.addAttribute("message","Course added successfully");
 		
-		return "redirect:/course/courses";
-		//return "redirect:/course/show-all";
+		return "redirect:/course/show-all";
 		
 	}
 	
 	@GetMapping("/course/show-all")
 	public String showAllCourse(Model model) {
-		model.addAttribute("course_list",courseService.getAllCourses());
+		model.addAttribute("courses",courseService.getAllCourses());
 		model.addAttribute("message","Showing all course...");
 		
 		return "/course/show-all";

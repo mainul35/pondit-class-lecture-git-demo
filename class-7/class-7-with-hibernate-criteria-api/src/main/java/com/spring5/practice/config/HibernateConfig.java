@@ -28,7 +28,10 @@ public class HibernateConfig {
 
     public CriteriaBuilder getCriteriaBuilder() {
         Session session = getSession();
-        session.beginTransaction();
+        var tx = session.getTransaction();
+        if(!tx.isActive()) {
+        	tx = session.beginTransaction();
+        }
         return session.getCriteriaBuilder();
     }
 

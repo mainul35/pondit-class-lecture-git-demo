@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "TBL_COUNTRY")
+@Table(name = "tbl_country")
 public class Country implements Serializable {
 
 	@Id
