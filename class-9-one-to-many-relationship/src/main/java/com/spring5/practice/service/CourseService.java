@@ -71,11 +71,6 @@ public class CourseService {
 		Transaction tx = session.getTransaction();
 		if (!tx.isActive())
 			tx = session.beginTransaction();
-		try {
-			
-		}catch(HibernateException e) {
-			
-		}
 
 		session.update(c);		
 		tx.commit();
@@ -101,13 +96,8 @@ public class CourseService {
 		
 		var query = session.getEntityManagerFactory().createEntityManager().createQuery("select c from Course c where courseCode=:courseCode ",Course.class);
 		query.setParameter("courseCode", courseCode);
-
-	
 		Course course =  query.getResultList().get(0);
-	
 		return course;
-		
-		
 	}
 
 	

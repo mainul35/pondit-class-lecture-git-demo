@@ -18,6 +18,8 @@ import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tbl_student")
 public class Student implements Serializable {
@@ -30,12 +32,7 @@ public class Student implements Serializable {
 	private String name;
 	@Column
 	private int age;
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(
-			name = "student_courses", 
-	joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"), 
-	inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id")
-	)
+	@OneToMany(mappedBy = "student")
 	private Set<Course> courses;
 	@Column(name = "gender")
 	private String gender;
@@ -43,10 +40,6 @@ public class Student implements Serializable {
 	private String email;
 	@ManyToOne
 	private Country country;
-	@Transient
-	private String countryCode;
-	@Transient
-	private Set<String> courseCodes;
 
 	public long getId() {
 		return id;
@@ -104,37 +97,10 @@ public class Student implements Serializable {
 		this.country = country;
 	}
 
-	public String getCountryCode() {
-		return countryCode;
-	}
-
-	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
-	}
-
-	public Set<String> getCourseCodes() {
-		return courseCodes;
-	}
-
-	public void setCourseCodes(Set<String> courseCodes) {
-		this.courseCodes = courseCodes;
-	}
-
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", name=" + name + ", age=" + age + ", courses=" + courses + ", gender=" + gender
 				+ ", email=" + email + ", country=" + country + "]";
-	}
-
-	public Student(long id, String name, int age, Set<Course> courses, String gender, String email, Country country) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.age = age;
-		this.courses = courses;
-		this.gender = gender;
-		this.email = email;
-		this.country = country;
 	}
 
 	public Student() {

@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(code = HttpStatus.CONFLICT) // 409
 	@ExceptionHandler(ResourceAlreadyExistsException.class)
 	public String handleConflict(HttpServletRequest req, Exception e, Model model) {
-
+		e.printStackTrace();
 		model.addAttribute("message", e.getMessage());
 		return "error";
 	}
@@ -27,13 +27,14 @@ public class GlobalExceptionHandler {
 	public String handleNotFound(HttpServletRequest req, Exception e, Model model) {
 
 		model.addAttribute("message", e.getMessage());
+		e.printStackTrace();
 		return "error";
 	}
 
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR) // 500
 	@ExceptionHandler(RuntimeException.class)
 	public String handleAnyServerError(HttpServletRequest req, Exception e, Model model) {
-
+		e.printStackTrace();
 		model.addAttribute("message", e.getMessage());
 		return "error";
 	}

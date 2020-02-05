@@ -25,7 +25,7 @@
 
 		<div class="form-group">
 			<label>Gender</label>
-			<form:input path="gender"></form:input>
+			<form:radiobuttons path="gender" items="${genders}" ></form:radiobuttons>
 		</div>
 
 		<div class="form-group">

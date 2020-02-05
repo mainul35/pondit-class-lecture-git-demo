@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,6 +26,9 @@ public class Course implements Serializable {
 	private String courseName;
 	@Column(name = "course_code")
 	private String courseCode;
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class, optional = true)
+	private Student student;
 
 	public Course() {
 		super();
@@ -58,6 +62,14 @@ public class Course implements Serializable {
 
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	@Override
