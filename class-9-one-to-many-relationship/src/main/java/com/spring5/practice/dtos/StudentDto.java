@@ -1,18 +1,16 @@
 package com.spring5.practice.dtos;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class StudentDto implements Serializable{
+public class StudentDto implements Serializable {
 	private String name;
 	private int age;
 	private String email;
 	private String countryCode;
 	private List<String> courseCodes;
-	Map<String, String> genders = new HashMap<String, String>();
-	
+	String gender;
+
 	public String getName() {
 		return name;
 	}
@@ -37,12 +35,12 @@ public class StudentDto implements Serializable{
 		this.email = email;
 	}
 
-	public Map<String, String> getGenders() {
-		return genders;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setGenders(Map<String, String> genders) {
-		this.genders = genders;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public String getCountryCode() {
@@ -64,6 +62,6 @@ public class StudentDto implements Serializable{
 	@Override
 	public String toString() {
 		return "Student [name=" + name + ", age=" + age + ", email=" + email + ", countryCode=" + countryCode
-				+ ", courseCodes=" + courseCodes + ", genders=" + genders + "]";
+				+ ", courseCodes=" + courseCodes + ", gender=" + gender + "]";
 	}
 }

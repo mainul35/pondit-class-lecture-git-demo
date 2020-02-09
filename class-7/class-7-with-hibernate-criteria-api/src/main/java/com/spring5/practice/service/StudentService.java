@@ -1,8 +1,6 @@
 package com.spring5.practice.service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -25,19 +23,20 @@ public class StudentService {
 	private CountryService countryService;
 	@Autowired
 	private CourseService courseService;
-	
+
 	private final HibernateConfig hibernateConfig;
-	
+
 	public StudentService(HibernateConfig hibernateConfig) {
 		this.hibernateConfig = hibernateConfig;
 	}
-	
+
 	public List<Student> showAll() {
 		var cb = hibernateConfig.getCriteriaBuilder();
 		var cq = cb.createQuery(Student.class);
 		var root = cq.from(Student.class);
 		cq.select(root);
-		return hibernateConfig.getSession().getEntityManagerFactory().createEntityManager().createQuery(cq).getResultList();
+		return hibernateConfig.getSession().getEntityManagerFactory().createEntityManager().createQuery(cq)
+				.getResultList();
 	}
 
 	@Transactional
@@ -52,15 +51,14 @@ public class StudentService {
 		BeanUtils.copyProperties(studentDto, studentEntity);
 		studentEntity.setCountry(country);
 		Set<Course> courses = new HashSet<Course>();
-		for(var courseCode: studentDto.getCourseCodes()) {
+		for (var courseCode : studentDto.getCourseCodes()) {
 			var course = courseService.getCourseByCourseCode(courseCode);
-			course.setStudent(studentEntity);
-			session.save(course);
 			courses.add(course);
 		}
 		studentEntity.setCourses(courses);
 		session.save(studentEntity);
+		session.flush();
 		tx.commit();
-		session.close();
 	}
+
 }

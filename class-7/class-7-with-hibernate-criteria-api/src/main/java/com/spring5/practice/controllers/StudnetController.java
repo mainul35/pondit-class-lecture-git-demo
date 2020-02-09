@@ -18,27 +18,30 @@ import com.spring5.practice.service.StudentService;
 
 @Controller
 public class StudnetController {
-	
+
 	@Autowired
 	private StudentService studentService;
-	
+
 	@Autowired
 	private CountryService countryService;
-	
+
 	@Autowired
 	private CourseService courseService;
-	
+
 	@GetMapping("/student/show-all")
 	public String hello(Model model) {
 		model.addAttribute("message", "Showing all users");
-		studentService.showAll().forEach(s->{
+		model.addAttribute("pageTitle", "Student List");
+		model.addAttribute("students", studentService.showAll());
+		studentService.showAll().forEach(s -> {
 			System.out.println(s.toString());
 		});
-		return "index";
+		return "student/show-all";
 	}
-	
+
 	@GetMapping("/student/add")
 	public String add(Model model) {
+		model.addAttribute("pageTitle", "Add Student");
 		model.addAttribute("student", new Student());
 		var genders = new HashMap<String, String>();
 		genders.put("M", "Male");
@@ -46,18 +49,18 @@ public class StudnetController {
 		model.addAttribute("genders", genders);
 		model.addAttribute("countries", countryService.getAll());
 		model.addAttribute("courses", courseService.getAllCourses());
-		return "/student/add";
+		return "student/add";
 	}
-	
+
 	@PostMapping("/student/add")
 	public String add(@ModelAttribute("student") Student student, Model model) {
 		var studentDto = new StudentDto();
 		BeanUtils.copyProperties(student, studentDto);
 		studentService.save(studentDto);
-		studentService.showAll().forEach(s->{
+		studentService.showAll().forEach(s -> {
 			System.out.println(s.toString());
 		});
 		return "redirect:/student/add";
 	}
-	
+
 }
