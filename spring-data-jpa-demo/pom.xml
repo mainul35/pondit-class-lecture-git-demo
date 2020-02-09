@@ -1,9 +1,11 @@
-<project>
-	<groupId>com.spring5.practice</groupId>
-	<artifactId>one-to-many-relationship</artifactId>
-	<version>1</version>
-	<packaging>war</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.mainul35</groupId>
+	<artifactId>spring-data-jpa-demo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 
 	<properties>
 		<java.version>11</java.version>
@@ -45,14 +47,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl-api -->
-		<!-- <dependency> <groupId>javax.servlet.jsp.jstl</groupId> <artifactId>jstl-api</artifactId> 
-			<version>1.2</version> <exclusions> <exclusion> <groupId>javax.servlet</groupId> 
-			<artifactId>servlet-api</artifactId> </exclusion> <exclusion> <groupId>javax.servlet.jsp</groupId> 
-			<artifactId>jsp-api</artifactId> </exclusion> </exclusions> </dependency> -->
-
-		<!-- <dependency> <groupId>javax.servlet.jsp.jstl</groupId> <artifactId>jstl-api</artifactId> 
-			<version>1.2</version> </dependency> -->
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -68,9 +62,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>jstl</artifactId> 
-			<version>1.2</version> </dependency> -->
-
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -78,11 +69,25 @@
 			<version>6.0.5</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.10.2</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.3.11.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>2.2.4.RELEASE</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
@@ -105,6 +110,6 @@
 			<artifactId>reflections</artifactId>
 			<version>0.9.12</version>
 		</dependency>
-
 	</dependencies>
+
 </project>
