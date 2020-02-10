@@ -1,119 +1,71 @@
 package com.spring5.practice.service;
 
-import java.util.List;
-
-import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.spring5.practice.model.Course;
+import org.hibernate.NonUniqueResultException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import com.spring5.practice.config.HibernateConfig;
-import com.spring5.practice.exceptions.ResourceAlreadyExistsException;
-import com.spring5.practice.model.Course;
+import java.util.List;
 
 @Service
-public class CourseService {
+public class CourseService extends BaseService<Course> {
 
-	private HibernateConfig hibernateConfig;
-
-	@Autowired
-	public CourseService(HibernateConfig hibernateConfig) {
-
-		this.hibernateConfig = hibernateConfig;
-
+	public CourseService() {
+		super(new Course());
 	}
 
-	/*
-	 * private void addCourse(String courseCode, String courseName) { var courseObj
-	 * = new Course(); courseObj.setId(courses.size() + 1);
-	 * courseObj.setCourseCode(courseCode); courseObj.setCourseName(courseName);
-	 * courses.add(courseObj); }
-	 */
-
 	public void addCourse(Course course) {
-		var session = hibernateConfig.getSession();
-		var transection = session.getTransaction();
-		if (!transection.isActive())
-			transection = session.beginTransaction();
 		checkCourseInDb(course);
 		course.setCourseCode(course.getCourseName().substring(0, 2));
-		session.save(course);
-		session.flush();
-		transection.commit();
+		save(course);
 	}
 
 	private void checkCourseInDb(Course c) {
 
-		var session = hibernateConfig.getSession();
+		var cb = getCriteriaBuilder();
+		var cq = cb.createQuery(Course.class);
+		var root = cq.from(Course.class);
 
-		Transaction tx = session.getTransaction(); // jamilxt
-		if (!tx.isActive())
-			tx = session.beginTransaction();
-
-		var query = session.getEntityManagerFactory().createEntityManager()
-				.createQuery("select c from Course c where courseCode=:courseCode ", Course.class);
-		query.setParameter("courseCode", c.getCourseCode());
-
-		if (query.getResultStream().findAny().isPresent()) {
-
-			tx.rollback();
-			session.close();
-			throw new ResourceAlreadyExistsException("Course Already exists");
+		cq.where(cb.equal(root.get("courseCode"), c.getCourseCode()));
+		var result = query(cq).getResultList();
+		if (result.size() > 0) {
+			throw new NonUniqueResultException(result.size());
 		}
 	}
 
 	public void saveEditedCourse(Course c) {
+		var cb = getCriteriaBuilder();
+		var cq = cb.createQuery(Course.class);
+		var root = cq.from(Course.class);
 
-		var session = hibernateConfig.getSession();
-		Transaction tx = session.getTransaction();
-		if (!tx.isActive())
-			tx = session.beginTransaction();
-
-		session.update(c);
-		tx.commit();
-		session.flush();
-
+		cq.where(cb.equal(root.get("courseId"), c.getCourseId()));
+		var result = query(cq).getResultList();
+		if (result.size() > 1) {
+			throw new NonUniqueResultException(result.size());
+		} else {
+			Course course = result.get(0);
+			BeanUtils.copyProperties(c, course);
+			save(course);
+		}
 	}
-
-	/*
-	 * public void deleteCourseByCourseCode(String courseCode) { for(int i = 0; i<
-	 * courses.size(); i++) { if(courses.get(i).getCourseCode().equals(courseCode))
-	 * { courses.remove(i); break; } } }
-	 */
 
 	public Course getCourseByCourseCode(String courseCode) {
 
-		var session = hibernateConfig.getSession();
-		Transaction tx = session.getTransaction();
-		if (!tx.isActive())
-			tx = session.beginTransaction();
+		var cb = getCriteriaBuilder();
+		var cq = cb.createQuery(Course.class);
+		var root = cq.from(Course.class);
 
-		var query = session.getEntityManagerFactory().createEntityManager()
-				.createQuery("select c from Course c where courseCode=:courseCode ", Course.class);
-		query.setParameter("courseCode", courseCode);
-		Course course = query.getResultList().get(0);
+		cq.where(cb.equal(root.get("courseCode"), courseCode));
+		var course = (Course) query(cq).getResultList().get(0);
 		return course;
 	}
 
 	public List<Course> getAllCourses() {
 
-		var session = hibernateConfig.getSession();
-		Transaction tx = session.getTransaction();
-		if (!tx.isActive())
-			tx = session.beginTransaction();
-
-		var query = session.getEntityManagerFactory().createEntityManager().createQuery("select c from Course c ",
-				Course.class);
-		var courseList = query.getResultList();
-
-		return courseList;
-		/*
-		 * var courseList = new ArrayList<Course>();
-		 * 
-		 * courseList.add(new Course(1,"CSE111" ,"P L 1")); courseList.add(new
-		 * Course(2,"CSE112" ,"P L 2"));
-		 * 
-		 * return courseList;
-		 */
-
+		var cb = getCriteriaBuilder();
+		var cq = cb.createQuery(Course.class);
+		var root = cq.from(Course.class);
+		var result = query(cq).getResultList();
+		return result;
 	}
 }

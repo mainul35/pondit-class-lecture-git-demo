@@ -10,7 +10,6 @@ import org.hibernate.cfg.Configuration;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -23,6 +22,10 @@ public abstract class BaseService<T> {
     private Session session;
 
     private T model;
+
+    public BaseService(T model) {
+        this.model = model;
+    }
 
     private Session getSession() {
         try {
@@ -95,14 +98,6 @@ public abstract class BaseService<T> {
             tx = session.beginTransaction();
         }
         return session.getCriteriaBuilder();
-    }
-
-    protected CriteriaQuery<? extends Object> getCriteriaQuery() {
-        return this.getCriteriaBuilder().createQuery(model.getClass());
-    }
-
-    protected Root<? extends Object> root() {
-        return this.getCriteriaQuery().from(model.getClass());
     }
 
     <T> TypedQuery<T> query(CriteriaQuery<T> query) {
