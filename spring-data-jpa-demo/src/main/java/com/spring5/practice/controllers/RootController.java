@@ -13,10 +13,4 @@ public class RootController {
 	public String root() {
 		return "index";
 	}
-	
-	@GetMapping("/login")
-	public String login(Model model, @RequestParam(name="error", required = false) String error) {
-		model.addAttribute("error", error);
-		return "auth/login";
-	}
 }

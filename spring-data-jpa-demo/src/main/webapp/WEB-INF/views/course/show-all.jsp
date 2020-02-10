@@ -9,7 +9,6 @@
 <title>Course List</title>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
 	<table>
 		<tr>
 			<th>ID</th>

@@ -9,7 +9,6 @@
 <title>Add New Course</title>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
 	<h1>Add New Course</h1>
 
 	<form:form action="${pageContext.request.contextPath }/course/add"

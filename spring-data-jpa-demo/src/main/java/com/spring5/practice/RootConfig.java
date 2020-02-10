@@ -6,7 +6,6 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {
 		"com.spring5.practice.service",
 		"com.spring5.practice.config.persistence",
-		"com.spring5.practice.config.security",
 })
 //@ComponentScan(basePackageClasses = {StudentService.class})
 public class RootConfig {

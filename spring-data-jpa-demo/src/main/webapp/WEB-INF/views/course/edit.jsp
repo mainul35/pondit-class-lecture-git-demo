@@ -9,7 +9,6 @@
 <title>Edit Course</title>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
 	<h1>Edit Course</h1>
 
 	<form:form action="${pageContext.request.contextPath }/course/edit"
