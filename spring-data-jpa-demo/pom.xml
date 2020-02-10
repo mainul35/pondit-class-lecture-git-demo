@@ -110,6 +110,7 @@
 			<artifactId>reflections</artifactId>
 			<version>0.9.12</version>
 		</dependency>
+
 	</dependencies>
 
 </project>
