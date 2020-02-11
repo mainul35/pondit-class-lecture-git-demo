@@ -1,4 +1,4 @@
-package com.spring5.practice.config;
+package com.spring5.practice.config.persistence;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionManager;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
