@@ -27,6 +27,11 @@ public class RootController {
 	public String root() {
 		return "index";
 	}
+
+	@GetMapping("/403")
+	public String _403() {
+		return "403";
+	}
 	
 	@GetMapping("/login")
 	public String login(Model model, @RequestParam(name="error", required = false) String error) {

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="spring-data-jpa-demo:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>spring-data-jpa-demo</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="configuring-access-denied-page-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="spring-data-jpa-demo:war exploded" />
+    </root>
+  </artifact>
+</component>

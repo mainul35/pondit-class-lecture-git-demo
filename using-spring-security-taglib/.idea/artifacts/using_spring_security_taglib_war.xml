@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="using-spring-security-taglib:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>using-spring-security-taglib</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="using-spring-security-taglib-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="using-spring-security-taglib:war exploded" />
+    </root>
+  </artifact>
+</component>
