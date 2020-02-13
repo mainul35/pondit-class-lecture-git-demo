@@ -11,6 +11,6 @@
     <title>403</title>
 </head>
 <body>
-<h1>Sorry, You don't have sufficint permission to visit this page.</h1>
+<h1>Sorry, You don't have sufficient permission to visit this page.</h1>
 </body>
 </html>
