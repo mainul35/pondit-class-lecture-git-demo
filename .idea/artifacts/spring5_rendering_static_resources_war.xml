@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="spring5-rendering-static-resources:war">
+    <output-path>$PROJECT_DIR$/spring5-rendering-static-resources/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>spring5-rendering-static-resources</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="spring5-rendering-static-resources-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="spring5-rendering-static-resources:war exploded" />
+    </root>
+  </artifact>
+</component>

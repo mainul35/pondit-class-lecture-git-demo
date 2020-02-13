@@ -39,5 +39,11 @@ public class ServletConfig implements WebMvcConfigurer {
                 .addResourceHandler("/js/**")
                 .addResourceLocations("/WEB-INF/resources/js/")
                 .setCachePeriod(999999999);
+
+        // Other template resource vendor files
+        registry
+                .addResourceHandler("/vendor/**")
+                .addResourceLocations("/WEB-INF/resources/vendor/")
+                .setCachePeriod(999999999);
     }
 }

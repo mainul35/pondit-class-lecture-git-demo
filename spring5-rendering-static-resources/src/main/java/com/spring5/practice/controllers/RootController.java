@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RootController {
 
     @GetMapping("/")
-    public String helloWorld(Model model) {
-        model.addAttribute("name", "World");
-        return "hello";
+    public String root(Model model) {
+        return "index";
     }
 
     @GetMapping("/say-hello")
