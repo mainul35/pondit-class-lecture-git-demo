@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="spring5-hello-world:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>spring5-hello-world</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="spring5-oauth2-inmemory-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="spring5-hello-world:war exploded" />
+    </root>
+  </artifact>
+</component>
