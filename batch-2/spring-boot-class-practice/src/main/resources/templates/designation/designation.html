@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Designation List</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" th:href="@{https://virtual.pondit.com}">PONDIT</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/employee/}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/designation/}">Designation</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div th:class="container">
+    <h3>All Designation List</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead>
+                    <tr class="bg-info">
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="designation : ${designationList}">
+                        <tr>
+                            <td th:text="${designation.designationId}">...</td>
+                            <td th:text="${designation.designationName}">...</td>
+                            <td><a class="btn btn-primary"
+                                   th:href="@{'/designation/update/'+${designation.designationId}}">Update</a>
+                                <a class="btn btn-danger"
+                                   th:href="@{'/designation/delete/'+${designation.designationId}}">Delete</a>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+                <!------------------------------------------------------------------------------------>
+                <div class="border border-dark p-3 mb-2">
+                    <div class="text-center">
+                        <a class="btn btn-primary" th:href="@{/designation/add-designation}">Add New Designation</a>
+                    </div>
+                </div>
+                <!------------------------------------------------------------------------------------>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

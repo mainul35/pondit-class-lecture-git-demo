@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Designation</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" th:href="@{https://virtual.pondit.com}">PONDIT</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/employee/}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/designation/}">Designation</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!----------------------------------------------------------------->
+<div th:class="container">
+    <h3>Add Designation</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-12">
+                <form th:action="@{/designation/save-designation}" method="post" th:object="${designationDto}">
+                    <input type="hidden" class="form-control" th:field="*{designationId}"/>
+
+                    <div class="form-group">
+                        <label for="designationName">Name</label>
+                        <input type="text" id="designationName" class="form-control" placeholder="Name"
+                               th:field="*{designationName}" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Save"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
