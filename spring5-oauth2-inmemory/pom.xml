@@ -9,7 +9,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <springframework.version>5.2.2.RELEASE</springframework.version>
+        <springframework.version>5.2.11.RELEASE</springframework.version>
     </properties>
 
     <dependencies>
