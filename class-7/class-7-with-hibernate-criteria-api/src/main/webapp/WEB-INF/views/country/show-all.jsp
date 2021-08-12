@@ -4,12 +4,12 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Add New Country</title>
-</head>
+<title>${pageTitle}</title>
+<!-- GLOBAL HEADER -->
+<jsp:include page="../common/header.jsp"/>
 <body>
-	<table>
+	<h1>${pageTitle}</h1>
+	<table class="table">
 		<tr>
 			<th>ID</th>
 			<th>Country Code</th>
@@ -25,3 +25,5 @@
 	</table>
 </body>
 </html>
+<!-- GLOBAL FOOTER -->
+<jsp:include page="../common/footer.jsp"/>

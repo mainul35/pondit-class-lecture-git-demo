@@ -34,7 +34,6 @@ public class CountryService {
 	private void addCountry(String countryName) {
 		// save the student object
 		var countryObj = new Country();
-		countryObj.setId(countries.size() + 1);
 		countryObj.setCountryName(countryName);
 		countryObj.setCountryCode(countryName.substring(0, 3));
 //		countries.add(countryObj);
@@ -53,8 +52,7 @@ public class CountryService {
 	}
 
 	public void checkCountryInList(Country c) {
-		if (countries.stream().filter(country -> country.getCountryCode().equals(c.getCountryCode())).findAny()
-				.isPresent()) {
+		if (countries.stream().anyMatch(country -> country.getCountryCode().equals(c.getCountryCode()))) {
 			throw new ResourceAlreadyExistsException("Country already exists in list");
 		}
 	}
@@ -101,6 +99,8 @@ public class CountryService {
 		cq.select(root);
 		List<Country> countries = hibernateConfig.getSession().getEntityManagerFactory().createEntityManager()
 				.createQuery(cq).getResultList();
+
+//		var countries = hibernateConfig.query(cq).getResultList();
 		// **************************** Criteria Query End **************************//
 		return countries;
 	}

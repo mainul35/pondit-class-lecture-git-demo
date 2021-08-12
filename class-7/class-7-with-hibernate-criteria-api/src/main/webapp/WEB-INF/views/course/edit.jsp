@@ -4,13 +4,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Edit Course</title>
-</head>
+<title>${pageTitle}</title>
+<jsp:include page="../common/header.jsp"/>
 <body>
 
-	<h1>Edit Course</h1>
+	<h1>${pageTitle}</h1>
 
 	<form:form action="${pageContext.request.contextPath }/course/edit"
 		modelAttribute="course">
@@ -23,3 +21,5 @@
 
 </body>
 </html>
+<!-- GLOBAL FOOTER -->
+<jsp:include page="../common/footer.jsp"/>

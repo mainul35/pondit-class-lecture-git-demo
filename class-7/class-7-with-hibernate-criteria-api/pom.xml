@@ -1,6 +1,6 @@
 <project>
 	<groupId>com.spring5.practice</groupId>
-	<artifactId>hello-world</artifactId>
+	<artifactId>class-7-with-hibernate-criteria-api</artifactId>
 	<version>1</version>
 	<packaging>war</packaging>
 	<modelVersion>4.0.0</modelVersion>
@@ -66,7 +66,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>6.0.5</version>
+			<version>8.0.24</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->

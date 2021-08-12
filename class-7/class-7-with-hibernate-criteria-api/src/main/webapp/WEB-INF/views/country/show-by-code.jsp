@@ -10,7 +10,7 @@
 </head>
 <body>
 <h3>${message}</h3>
-<table>
+<table class="table">
     <tr>
         <th>ID</th>
         <th>Country Code</th>

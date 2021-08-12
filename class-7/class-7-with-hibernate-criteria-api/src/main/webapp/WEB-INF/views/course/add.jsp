@@ -4,21 +4,27 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Add New Course</title>
-</head>
+<jsp:include page="../common/header.jsp"/>
+<title>${pageTitle}</title>
 <body>
 
-	<h1>Add New Course</h1>
+	<h1>${pageTitle}</h1>
 
-	<form:form action="${pageContext.request.contextPath }/course/add"
-		modelAttribute="course">
-		<form:input path="courseName" />
-		<br>
-
-		<input type="submit" name="submit" value="Add Course">
-	</form:form>
-
+	<div class="row">
+		<div class="col-4">
+			<form:form action="${pageContext.request.contextPath }/course/add"
+					   modelAttribute="course">
+				<div class="col-12">
+					<label>Course Name</label>
+					<form:input path="courseName" />
+				</div>
+				<div class="col-12">
+					<input type="submit" name="submit" value="Add Course">
+				</div>
+			</form:form>
+		</div>
+	</div>
 </body>
 </html>
+<!-- GLOBAL FOOTER -->
+<jsp:include page="../common/footer.jsp"/>

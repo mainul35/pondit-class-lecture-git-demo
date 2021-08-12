@@ -51,9 +51,11 @@ public class StudentService {
 		BeanUtils.copyProperties(studentDto, studentEntity);
 		studentEntity.setCountry(country);
 		Set<Course> courses = new HashSet<Course>();
-		for (var courseCode : studentDto.getCourseCodes()) {
-			var course = courseService.getCourseByCourseCode(courseCode);
-			courses.add(course);
+		if (studentDto.getCourseCodes() != null) {
+			for (var courseCode : studentDto.getCourseCodes()) {
+				var course = courseService.getCourseByCourseCode(courseCode);
+				courses.add(course);
+			}
 		}
 		studentEntity.setCourses(courses);
 		session.save(studentEntity);
@@ -61,4 +63,12 @@ public class StudentService {
 		tx.commit();
 	}
 
+	public Student getById(String id) {
+		var cb = hibernateConfig.getCriteriaBuilder();
+		var cq = cb.createQuery(Student.class);
+		var root = cq.from(Student.class);
+		cq.select(root);
+		cq.where(cb.equal(root.get("id"), id));
+		return hibernateConfig.query(cq).getSingleResult();
+	}
 }

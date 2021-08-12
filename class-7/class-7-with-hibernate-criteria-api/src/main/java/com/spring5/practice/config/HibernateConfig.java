@@ -7,18 +7,19 @@ import org.hibernate.cfg.Configuration;
 import org.reflections.Reflections;
 
 import javax.persistence.Entity;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Modifier;
 import java.util.Properties;
 
-//@org.springframework.context.annotation.Configuration
 public class HibernateConfig {
     private SessionFactory sessionFactory = null;
 
     private Session session;
 
-    //    @Bean
     public Session getSession() {
         this.session = createAndGetLocalSessionFactoryBean().getCurrentSession();
         return session != null
@@ -26,7 +27,6 @@ public class HibernateConfig {
                 : createAndGetLocalSessionFactoryBean().openSession();
     }
 
-    //    @Bean
     public SessionFactory createAndGetLocalSessionFactoryBean() {
         if (this.sessionFactory == null) {
             try {
@@ -61,5 +61,25 @@ public class HibernateConfig {
             e.printStackTrace();
         }
         return properties;
+    }
+
+    public CriteriaBuilder getCriteriaBuilder() {
+        Session session = getSession();
+        var tx = session.getTransaction();
+        if (!tx.isActive()) {
+            tx = session.beginTransaction();
+        }
+        return session.getCriteriaBuilder();
+    }
+
+    public <T> TypedQuery<T> query(CriteriaQuery<T> query) {
+        var session = getSession();
+        var tx = session.getTransaction();
+        if (!tx.isActive()) {
+            tx = session.beginTransaction();
+        }
+        var result = session.getEntityManagerFactory().createEntityManager().createQuery(query);
+        tx.commit();
+        return result;
     }
 }

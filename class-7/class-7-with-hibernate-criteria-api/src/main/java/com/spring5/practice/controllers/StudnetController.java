@@ -15,6 +15,7 @@ import com.spring5.practice.request.Student;
 import com.spring5.practice.service.CountryService;
 import com.spring5.practice.service.CourseService;
 import com.spring5.practice.service.StudentService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class StudnetController {
@@ -60,7 +61,20 @@ public class StudnetController {
 		studentService.showAll().forEach(s -> {
 			System.out.println(s.toString());
 		});
-		return "redirect:/student/add";
+		return "redirect:/student/show-all";
 	}
 
+	@GetMapping("/student/edit")
+	public String edit(Model model, @RequestParam("id") String id) {
+		model.addAttribute("pageTitle", "Edit Student");
+		var student = studentService.getById(id);
+		model.addAttribute("student", student);
+		var genders = new HashMap<String, String>();
+		genders.put("M", "Male");
+		genders.put("F", "Female");
+		model.addAttribute("genders", genders);
+		model.addAttribute("countries", countryService.getAll());
+		model.addAttribute("courses", courseService.getAllCourses());
+		return "student/edit";
+	}
 }
