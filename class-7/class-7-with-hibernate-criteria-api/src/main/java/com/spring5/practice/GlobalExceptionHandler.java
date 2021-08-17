@@ -25,7 +25,6 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(code = HttpStatus.NOT_FOUND) // 404
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public String handleNotFound(HttpServletRequest req, Exception e, Model model) {
-
 		model.addAttribute("message", e.getMessage());
 		e.printStackTrace();
 		return "error";

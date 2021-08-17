@@ -44,15 +44,19 @@ public class CountryService {
 	@Transactional
 	public void addCountry(Country country) {
 		var session = hibernateConfig.getSession();
-		var transaction = session.beginTransaction();
+		// need to check transaction is active or not
+		var tx = session.getTransaction();
+		if(!tx.isActive())
+			tx = session.beginTransaction();
 		country.setId(countries.size() + 1);
 		session.save(country);
 		session.flush();
-		transaction.commit();
+		tx.commit();
 	}
 
 	public void checkCountryInList(Country c) {
-		if (countries.stream().anyMatch(country -> country.getCountryCode().equals(c.getCountryCode()))) {
+		if (countries.stream()
+				.anyMatch(country -> country.getCountryCode().equals(c.getCountryCode()))) {
 			throw new ResourceAlreadyExistsException("Country already exists in list");
 		}
 	}
@@ -74,7 +78,10 @@ public class CountryService {
 		CriteriaQuery<Country> cq = cb.createQuery(Country.class);
 		Root<Country> root = cq.from(Country.class);
 		cq.where(cb.equal(root.get("countryCode"), countryCode));
-		var result = hibernateConfig.getSession().getEntityManagerFactory().createEntityManager().createQuery(cq)
+		var result = hibernateConfig.getSession()
+				.getEntityManagerFactory()
+				.createEntityManager()
+				.createQuery(cq)
 				.getResultList();
 
 		// **************************** Criteria Query End **************************//
@@ -97,8 +104,11 @@ public class CountryService {
 		CriteriaQuery<Country> cq = cb.createQuery(Country.class);
 		Root<Country> root = cq.from(Country.class);
 		cq.select(root);
-		List<Country> countries = hibernateConfig.getSession().getEntityManagerFactory().createEntityManager()
-				.createQuery(cq).getResultList();
+		List<Country> countries = hibernateConfig.getSession()
+				.getEntityManagerFactory()
+				.createEntityManager()
+				.createQuery(cq)
+				.getResultList();
 
 //		var countries = hibernateConfig.query(cq).getResultList();
 		// **************************** Criteria Query End **************************//

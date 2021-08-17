@@ -55,6 +55,7 @@ public class StudnetController {
 
 	@PostMapping("/student/add")
 	public String add(@ModelAttribute("student") Student student, Model model) {
+
 		var studentDto = new StudentDto();
 		BeanUtils.copyProperties(student, studentDto);
 		studentService.save(studentDto);
@@ -72,9 +73,31 @@ public class StudnetController {
 		var genders = new HashMap<String, String>();
 		genders.put("M", "Male");
 		genders.put("F", "Female");
+		model.addAttribute("studentId",id);
 		model.addAttribute("genders", genders);
 		model.addAttribute("countries", countryService.getAll());
 		model.addAttribute("courses", courseService.getAllCourses());
 		return "student/edit";
+	}
+
+	@PostMapping("/student/update")
+	public String update(Model model,@ModelAttribute("student") Student student, @RequestParam("id") long id){
+//		var studentEntity = studentService.getById(id+"");
+		var studentDto = new StudentDto();
+		BeanUtils.copyProperties(student, studentDto);
+		studentService.update(studentDto, id);
+		studentService.showAll().forEach(s -> {
+			System.out.println(s.toString());
+		});
+//
+//		System.out.println("-----------------------------------");
+//		System.out.println("student object received ");
+//		System.out.println(student);
+//		System.out.println("-----------------------------------");
+//		System.out.println("-----------------------------------");
+//		System.out.println("student object findbyid ");
+//		System.out.println(studentEntity);
+//		System.out.println("-----------------------------------");
+		return "redirect:/student/show-all";
 	}
 }

@@ -16,21 +16,30 @@ import java.lang.reflect.Modifier;
 import java.util.Properties;
 
 public class HibernateConfig {
+
     private SessionFactory sessionFactory = null;
 
     private Session session;
 
     public Session getSession() {
         this.session = createAndGetLocalSessionFactoryBean().getCurrentSession();
-        return session != null
-                ? this.session
-                : createAndGetLocalSessionFactoryBean().openSession();
+        return session != null ? this.session : createAndGetLocalSessionFactoryBean().openSession();
     }
 
     public SessionFactory createAndGetLocalSessionFactoryBean() {
         if (this.sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
+             /*  //----------------- configure with hibernate.cfg.xml-----------------
+                sessionFactory = new Configuration().configure().buildSessionFactory();
+                // or do the above line in step wise like below
+                Configuration cfg = new Configuration();
+                cfg.configure("hibernate.cfg.xml");
+                sessionFactory = cfg.buildSessionFactory();
+                System.out.println(sessionFactory);
+                System.out.println(sessionFactory.isClosed());
+                //----------------- end configure with hibernate.cfg.xml-----------------  */
+
                 // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = getBuiltProperties("hibernate.properties");
 

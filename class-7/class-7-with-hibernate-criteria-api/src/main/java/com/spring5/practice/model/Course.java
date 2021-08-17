@@ -2,12 +2,7 @@ package com.spring5.practice.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "tbl_course")
@@ -15,6 +10,11 @@ public class Course implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+//	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
+//	@TableGenerator(name = "table_course_generator",
+//			table = "course_ids",
+//			pkColumnName = "seq_id",
+//			valueColumnName = "seq_value")
 	@Column(name = "id", nullable = false)
 	private long courseId;
 	@Column(name = "course_name")

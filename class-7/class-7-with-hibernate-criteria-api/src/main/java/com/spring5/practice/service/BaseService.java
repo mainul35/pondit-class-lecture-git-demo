@@ -101,6 +101,9 @@ public abstract class BaseService<T> {
     }
 
     <T> TypedQuery<T> query(CriteriaQuery<T> query) {
-        return getSession().getEntityManagerFactory().createEntityManager().createQuery(query);
+        return getSession()
+                .getEntityManagerFactory()
+                .createEntityManager()
+                .createQuery(query);
     }
 }
