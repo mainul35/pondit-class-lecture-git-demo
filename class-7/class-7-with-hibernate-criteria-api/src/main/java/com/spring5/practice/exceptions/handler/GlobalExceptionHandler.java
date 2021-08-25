@@ -2,6 +2,7 @@ package com.spring5.practice.exceptions.handler;
 
 import com.spring5.practice.exceptions.ResourceAlreadyExistsException;
 import com.spring5.practice.exceptions.ResourceNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	@ResponseStatus(code = HttpStatus.CONFLICT) // 409
@@ -24,6 +26,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public String handleNotFound(HttpServletRequest req, Exception e, Model model) {
 		model.addAttribute("message", e.getMessage());
+		log.error("Requested page was not found");
 		e.printStackTrace();
 		return "error";
 	}

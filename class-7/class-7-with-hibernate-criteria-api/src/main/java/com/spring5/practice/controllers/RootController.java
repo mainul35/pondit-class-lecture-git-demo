@@ -1,5 +1,6 @@
 package com.spring5.practice.controllers;
 
+import com.spring5.practice.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -8,6 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class RootController {
 	@GetMapping("/")
 	public String root() {
-		return "index";
+		throw new ResourceNotFoundException("Requested resource was not found");
 	}
 }
