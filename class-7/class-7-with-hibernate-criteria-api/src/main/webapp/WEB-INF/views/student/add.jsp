@@ -7,6 +7,7 @@
 <title>${pageTitle}</title>
 <!-- GLOBAL HEADER -->
 <jsp:include page="../common/header.jsp"/>
+<p style="color: red">${errors}</p>
 <body>
 
 	<h1>${pageTitle}</h1>

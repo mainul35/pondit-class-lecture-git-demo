@@ -1,21 +1,23 @@
 package com.spring5.practice.controllers;
 
-import java.util.HashMap;
-
+import com.spring5.practice.dtos.StudentDto;
+import com.spring5.practice.request.StudentRequest;
+import com.spring5.practice.service.CountryService;
+import com.spring5.practice.service.CourseService;
+import com.spring5.practice.service.StudentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import com.spring5.practice.dtos.StudentDto;
-import com.spring5.practice.request.Student;
-import com.spring5.practice.service.CountryService;
-import com.spring5.practice.service.CourseService;
-import com.spring5.practice.service.StudentService;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
+import java.util.HashMap;
 
 @Controller
 public class StudnetController {
@@ -43,7 +45,9 @@ public class StudnetController {
 	@GetMapping("/student/add")
 	public String add(Model model) {
 		model.addAttribute("pageTitle", "Add Student");
-		model.addAttribute("student", new Student());
+		if (!model.containsAttribute("student")) {
+			model.addAttribute("student", new StudentRequest());
+		}
 		var genders = new HashMap<String, String>();
 		genders.put("M", "Male");
 		genders.put("F", "Female");
@@ -54,8 +58,16 @@ public class StudnetController {
 	}
 
 	@PostMapping("/student/add")
-	public String add(@ModelAttribute("student") Student student, Model model) {
-
+	public String add(@Validated @ModelAttribute("student") StudentRequest student, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			var errors = "";
+			for (var error: result.getAllErrors()) {
+				errors += error.getDefaultMessage() + "<br>";
+			}
+			model.addAttribute("errors", errors);
+			model.addAttribute("student", student);
+			return add(model);
+		}
 		var studentDto = new StudentDto();
 		BeanUtils.copyProperties(student, studentDto);
 		studentService.save(studentDto);
@@ -81,7 +93,7 @@ public class StudnetController {
 	}
 
 	@PostMapping("/student/update")
-	public String update(Model model,@ModelAttribute("student") Student student, @RequestParam("id") long id){
+	public String update(Model model, @ModelAttribute("student") StudentRequest student, @RequestParam("id") long id){
 //		var studentEntity = studentService.getById(id+"");
 		var studentDto = new StudentDto();
 		BeanUtils.copyProperties(student, studentDto);
@@ -89,15 +101,6 @@ public class StudnetController {
 		studentService.showAll().forEach(s -> {
 			System.out.println(s.toString());
 		});
-//
-//		System.out.println("-----------------------------------");
-//		System.out.println("student object received ");
-//		System.out.println(student);
-//		System.out.println("-----------------------------------");
-//		System.out.println("-----------------------------------");
-//		System.out.println("student object findbyid ");
-//		System.out.println(studentEntity);
-//		System.out.println("-----------------------------------");
 		return "redirect:/student/show-all";
 	}
 }

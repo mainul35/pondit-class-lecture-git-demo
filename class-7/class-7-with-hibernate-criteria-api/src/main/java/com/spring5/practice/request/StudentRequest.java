@@ -1,13 +1,20 @@
 package com.spring5.practice.request;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Student implements Serializable{
+public class StudentRequest implements Serializable{
+	@NotBlank(message = "Name must not be blank")
 	private String name;
 	private int age;
+	@NotBlank(message = "Email not blank")
+	@Email(message = "Not a valid email address")
 	private String email;
 	private String countryCode;
 	private List<String> courseCodes;
