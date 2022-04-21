@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebMvc
-@Configuration
 @ComponentScan(basePackages = {"com.spring5.practice.controllers"})
 public class ServletConfig implements WebMvcConfigurer {
 
