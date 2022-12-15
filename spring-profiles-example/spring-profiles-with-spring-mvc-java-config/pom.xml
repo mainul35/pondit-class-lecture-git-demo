@@ -9,7 +9,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<spring.version>5.2.11.RELEASE</spring.version>
+		<spring.version>5.2.20.RELEASE</spring.version>
 	</properties>
 	<build>
 		<plugins>
