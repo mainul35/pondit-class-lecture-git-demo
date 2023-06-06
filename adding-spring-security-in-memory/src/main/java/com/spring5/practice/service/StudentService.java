@@ -4,7 +4,7 @@
 //import java.util.List;
 //import java.util.Set;
 //
-//import javax.transaction.Transactional;
+//import jakarta.transaction.Transactional;
 //
 //import org.hibernate.Transaction;
 //import org.springframework.beans.BeanUtils;

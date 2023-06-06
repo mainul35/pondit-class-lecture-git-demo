@@ -5,21 +5,19 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.spring5.practice.model.Course;
 import com.spring5.practice.service.CourseService;
 
 @Controller
+@RequestMapping("/course")
 public class CourseController {
 
 	@Autowired
 	CourseService courseService;
 
-	@GetMapping("/course/add")
+	@GetMapping("/add")
 	public String getAddCoursePage(Model model) {
 		model.addAttribute("pageTitle", "Add Course");
 		model.addAttribute("course", new Course());
@@ -29,7 +27,7 @@ public class CourseController {
 
 	}
 
-	@PostMapping("/course/add")
+	@PostMapping("/add")
 	public String addCourse(Model model, @ModelAttribute(name = "course") Course course) {
 		courseService.addCourse(course);
 		model.addAttribute("message", "Course added successfully");
@@ -38,7 +36,7 @@ public class CourseController {
 
 	}
 
-	@GetMapping("/course/show-all")
+	@GetMapping("/show-all")
 	public String showAllCourse(Model model) {
 		model.addAttribute("pageTitle", "Course List");
 		model.addAttribute("courses", courseService.getAllCourses());
@@ -47,7 +45,7 @@ public class CourseController {
 		return "/course/show-all";
 	}
 
-	@GetMapping("/course/courses")
+	@GetMapping("/courses")
 	public String coursesPage(Model model) {
 
 		model.addAttribute("course_list", courseService.getAllCourses());
@@ -58,7 +56,7 @@ public class CourseController {
 
 	}
 
-	@GetMapping("/course/edit")
+	@GetMapping("/edit")
 	public String editCourseByCourseCode(Model model, @RequestParam("courseCode") String courseCode) {
 
 		model.addAttribute("course", courseService.getCourseByCourseCode(courseCode));
@@ -67,7 +65,7 @@ public class CourseController {
 		return "course/edit";
 	}
 
-	@PostMapping("/course/edit")
+	@PostMapping("/edit")
 	public String saveEditedCourse(Model model, @ModelAttribute(name = "course") Course course) {
 		courseService.saveEditedCourse(course);
 		model.addAttribute("message", "Course saved successfully");
@@ -75,7 +73,7 @@ public class CourseController {
 		return "redirect:/course/courses";
 	}
 
-	@GetMapping("/course/delete")
+	@GetMapping("/delete")
 	public String deleteCourseByCourseCode(Model model, @RequestParam("courseCode") String courseCode) {
 
 //		 courseService.deleteCourseByCourseCode(courseCode);
@@ -84,7 +82,7 @@ public class CourseController {
 		return "redirect:/course/courses";
 	}
 
-	@PostMapping("/course/search")
+	@PostMapping("/search")
 	public String searchCourseByCourseCode(Model model, @ModelAttribute(name = "course") Course course) {
 
 		var courseList = new ArrayList();

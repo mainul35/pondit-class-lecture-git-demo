@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  student_course_module_jpa:
+    image: mysql
+    container_name: student_course_module_jpa
+    volumes:
+      - ./data:/data
+    ports:
+      - '3307:3306'
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=@root#'
+      - 'MYSQL_DATABASE=student_course_module_jpa'
+    extra_hosts:
+      - 'spring_mvc_hibernate:192.168.238.2'

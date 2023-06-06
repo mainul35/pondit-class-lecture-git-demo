@@ -15,15 +15,17 @@
 //import com.spring5.practice.service.CountryService;
 //import com.spring5.practice.service.CourseService;
 //import com.spring5.practice.service.StudentService;
+//import org.springframework.web.bind.annotation.RequestMapping;
 //
 //@Controller
+//@RequestMapping(value = "/student")
 //public class StudnetController {
 //
-//	@Autowired
-//	private StudentService studentService;
-//
-//	@Autowired
-//	private CountryService countryService;
+////	@Autowired
+////	private StudentService studentService;
+////
+////	@Autowired
+////	private CountryService countryService;
 //
 //	@Autowired
 //	private CourseService courseService;
@@ -32,10 +34,10 @@
 //	public String hello(Model model) {
 //		model.addAttribute("message", "Showing all users");
 //		model.addAttribute("pageTitle", "Student List");
-//		model.addAttribute("students", studentService.showAll());
-//		studentService.showAll().forEach(s -> {
-//			System.out.println(s.toString());
-//		});
+////		model.addAttribute("students", studentService.showAll());
+////		studentService.showAll().forEach(s -> {
+////			System.out.println(s.toString());
+////		});
 //		return "student/show-all";
 //	}
 //
