@@ -2,7 +2,7 @@ package com.spring5.practice.model;
 
 import com.spring5.practice.enums.Role;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity

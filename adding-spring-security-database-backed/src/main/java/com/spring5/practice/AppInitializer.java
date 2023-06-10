@@ -1,7 +1,9 @@
 package com.spring5.practice;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRegistration;
+import com.spring5.practice.config.persistence.HibernateConfig;
+import com.spring5.practice.config.security.SecurityConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRegistration;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
@@ -14,7 +16,7 @@ public class AppInitializer implements WebApplicationInitializer {
 
 		// Load Spring web application configuration
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.register(RootConfig.class);
+		rootContext.register(RootConfig.class, SecurityConfig.class, HibernateConfig.class);
 		rootContext.refresh();
 
 		servletCxt.addListener(new ContextLoaderListener(rootContext));

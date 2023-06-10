@@ -1,14 +1,19 @@
 package com.spring5.practice.config.security;
 
+import com.spring5.practice.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
@@ -62,20 +67,16 @@ public class SecurityConfig {
 				.build();
 
 	}
-	@Bean
-	public UserDetailsService userDetailsService() {
 
-		UserDetails user = User
-				.withUsername("user")
-				.password("{noop}password")
-				.roles("USER")
-				.build();
-		UserDetails admin = User
-				.withUsername("admin")
-				.password("{noop}password")
-				.roles("ADMIN", "USER")
-				.build();
-		return new InMemoryUserDetailsManager(user, admin);
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth, UserService userService, PasswordEncoder passwordEncoder) throws Exception {
+	//#####################     Custom UserDetailsService Authentication      #####################
+		auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+	}
+
+	@Bean(name = "passwordEncoder")
+	PasswordEncoder BCPasswordEncoder(){
+		return new BCryptPasswordEncoder(11);
 	}
 
 	@Bean
