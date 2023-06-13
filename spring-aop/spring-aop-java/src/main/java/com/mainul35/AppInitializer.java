@@ -5,12 +5,12 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
 
 public class AppInitializer implements WebApplicationInitializer {
     @Override
-    public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
+    public void onStartup(jakarta.servlet.ServletContext servletContext) throws ServletException {
         // Load Spring web application configuration
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(RootConfig.class);

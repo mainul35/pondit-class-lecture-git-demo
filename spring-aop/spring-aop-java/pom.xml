@@ -9,8 +9,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <properties>
-        <spring.version>5.2.4.RELEASE</spring.version>
-        <servlet-api.version>4.0.1</servlet-api.version>
+        <spring.version>6.0.9</spring.version>
+        <servlet-api.version>6.0.0</servlet-api.version>
     </properties>
 
     <dependencies>
@@ -34,10 +34,10 @@
             <artifactId>spring-aop</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <version>${servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -45,12 +45,12 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
-            <version>1.6.11</version>
+            <version>1.9.19</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.6.11</version>
+            <version>1.9.19</version>
         </dependency>
     </dependencies>
 
@@ -76,7 +76,26 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.11</version>
+                <version>1.14.0</version>
+                <configuration>
+                    <complianceLevel>11</complianceLevel>
+                    <source>11</source>
+                    <target>11</target>
+                    <showWeaveInfo>true</showWeaveInfo>
+                    <verbose>true</verbose>
+                    <Xlint>ignore</Xlint>
+                    <encoding>UTF-8 </encoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!-- use this goal to weave all your main classes -->
+                            <goal>compile</goal>
+                            <!-- use this goal to weave all your test classes -->
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

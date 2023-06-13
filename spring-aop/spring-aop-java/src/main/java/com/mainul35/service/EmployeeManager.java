@@ -1,5 +1,6 @@
 package com.mainul35.service;
 
+import com.mainul35.Audit;
 import com.mainul35.EmployeeDTO;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @Component
 public class EmployeeManager
 {
+    @Audit(role = "ROLE_USER")
     public EmployeeDTO getEmployeeById(Integer employeeId) {
         System.out.println("Method getEmployeeById() called");
         return new EmployeeDTO();
